@@ -1,0 +1,51 @@
+# Rust
+/target
+**/*.rs.bk
+
+# Anchor
+**/node_modules
+**/dist
+/.anchor
+/target/
+/**/target/
+/.mermaid/
+/node_modules/
+/.DS_Store
+
+# Next.js
+/app/.next
+/app/out
+/app/node_modules
+/app/.env.local
+
+# Solana CLI and keypairs
+*.json
+!.anchor/
+!programs/**/Cargo.toml
+
+# Output directories
+dist/
+build/
+lib/
+out/
+
+# Anchor config output
+.anchor/
+.solana/
+
+# Local test ledger
+test-ledger/
+
+# Environment files
+.env
+.env.*
+
+# VSCode and editor config
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Mac system files
+.DS_Store

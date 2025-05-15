@@ -1,0 +1,19 @@
+[toolchain]
+package_manager = "yarn"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+grains = "873K743tXENkdLWRsm5VUz6PAqDjykkhgQDk5cAJB1qs"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "/Users/deonabellana/.config/solana/id.json"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/"
