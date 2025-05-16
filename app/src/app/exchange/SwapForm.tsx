@@ -1,74 +1,65 @@
-'use client';
+import React, { useState } from 'react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { swapUSDCForGrain } from '../utils/swapUSDCForGrain'; // adjust path as needed
 
-import { FC, useState } from 'react';
-import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { swapUSDCForGrain } from '../utils/tokenTransfer';
+export const SwapForm: React.FC = () => {
+  const { connection } = useConnection();
+  const wallet = useWallet();
 
-interface SwapFormProps {
-  defaultAmount?: number;
-}
-
-const SwapForm: FC<SwapFormProps> = ({ defaultAmount = 10 }) => {
-  const [amount, setAmount] = useState(defaultAmount);
+  const [inputAmount, setInputAmount] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  const { wallet, publicKey, connected } = useWallet();
-  const { connection } = useConnection();
-  const walletContext = useWallet();
-
   const handleSwap = async () => {
-    if (!connected || !publicKey || !wallet) {
-      alert('Connect your wallet first.');
+    if (!inputAmount || isNaN(Number(inputAmount))) {
+      alert('Please enter a valid amount');
       return;
     }
-
+    setLoading(true);
     try {
-      setLoading(true);
-
-      const txid = await swapUSDCForGrain({
+      await swapUSDCForGrain({
         connection,
-        wallet: walletContext,
-        amount,
+        wallet,
+        amount: parseFloat(inputAmount),
       });
-
-      alert(`✅ Swap successful! TX ID: ${txid}`);
-    } catch (err: any) {
-      console.error(err);
-      alert(`❌ Swap failed: ${err.message || err}`);
-    } finally {
-      setLoading(false);
+      alert('Swap successful!');
+      setInputAmount('');
+    } catch (error) {
+      console.error(error);
+      alert('Swap failed');
     }
+    setLoading(false);
   };
 
   return (
-    <div className="mt-6 p-4 border rounded-md bg-gray-100">
-      <h2 className="text-lg font-bold mb-4">Swap USDC → GRAIN</h2>
-
-      <div className="flex flex-col space-y-4">
-        <label className="flex flex-col">
-          Amount (USDC):
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-            className="p-2 border rounded-md mt-1"
-            min="0"
-            step="0.01"
-          />
-        </label>
-
-        <button
-          onClick={handleSwap}
-          disabled={loading}
-          className={`bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition ${
-            loading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-        >
-          {loading ? 'Swapping...' : 'Confirm Swap'}
-        </button>
-      </div>
+    <div style={{ maxWidth: 400, margin: 'auto' }}>
+      <h2>Swap USDC for GRAIN</h2>
+      <input
+        type="number"
+        placeholder="Amount in USDC"
+        value={inputAmount}
+        onChange={(e) => setInputAmount(e.target.value)}
+        disabled={loading}
+        style={{ width: '100%', padding: 8, marginBottom: 12 }}
+      />
+      <button
+        onClick={handleSwap}
+        disabled={loading || !wallet.connected}
+        style={{
+          width: '100%',
+          padding: 12,
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          border: 'none',
+          cursor: loading ? 'not-allowed' : 'pointer',
+        }}
+      >
+        {loading ? 'Swapping...' : 'Swap USDC → GRAIN'}
+      </button>
+      {!wallet.connected && (
+        <p style={{ color: 'red', marginTop: 12 }}>
+          Please connect your wallet first.
+        </p>
+      )}
     </div>
   );
 };
-
-export default SwapForm;
