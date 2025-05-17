@@ -1,53 +1,67 @@
 # 🌾 Grains
 
-**Tagline:** Accessible yield, powered by Treasuries. For everyone.
+**Accessible yield. Powered by Treasuries. For everyone.**
 
-Grains is a Solana-based protocol that democratizes access to yield-bearing U.S. Treasuries. We enable users — anywhere in the world — to swap stablecoins (like USDC) for a tokenized, on-chain representation of Treasury-backed savings called GRAIN.
+Grains is a Solana-based protocol that allows anyone, anywhere, to convert stablecoins like USDC into a yield-bearing token (GRAIN) that represents U.S. Treasuries — without banks, credit scores, or minimum investment requirements.
 
-## 🌍 Problem
+---
 
-Millions of people around the world are stuck saving in inflationary currencies with no access to safe, dollar-based yield. U.S. Treasuries are the gold standard of safety, but:
+## 🚀 Demo Links
 
-- Require high minimum investments ($5K–$5M)
-- Are locked behind banking systems, KYC, and geographic restrictions
-- Aren’t accessible to freelancers, crypto users, or unbanked youth
+- 🎥 [Demo Video](https://youtu.be/YOUR_DEMO_LINK) — <small>walkthrough of UX flow</small>
+- 🎥 [Technical Overview](https://youtu.be/YOUR_TECH_LINK) — <small>architecture + smart contract</small>
+- 🌐 [Frontend (optional)](https://grains.vercel.app)
+- 🧠 [GitHub Repo](https://github.com/YOUR_NAME/grains)
 
-## 💡 Solution
+---
 
-**Grains** removes these barriers with an on-chain, wallet-based interface:
+## 🧩 What Grains Solves
 
-- ✅ Swap USDC for **GRAIN** (a tokenized T-bill position)
-- ✅ Start with $1 or less
-- ✅ No bank account, KYC, or paperwork (MVP)
-- ✅ Redeem anytime back to USDC
+Billions of people are locked out of U.S. Treasury yield due to:
 
-## ⚙️ How It Works
+- High minimums ($5K–$5M)
+- Bank & KYC requirements
+- Geographic restrictions
+- Lack of DeFi-native interfaces
 
-1. **User connects wallet** (Phantom, Solflare, etc.)
-2. **Enters amount of USDC** to convert
-3. **Selects a tokenized Treasury product**
-4. **Executes on-chain swap** → Receives GRAIN
-5. **Redeems GRAIN** back to USDC anytime
+**Grains democratizes access to the safest yield on Earth.**
 
-### 🔗 Tech Stack
+---
 
-- **Solana** — Ultra-fast blockchain for cheap, global access
-- **Anchor** — Smart contract framework
-- **SPL Tokens** — USDC and GRAIN
-- **React + Tailwind** — Clean frontend UI
-- **Wallet Adapter** — Phantom integration for smooth UX
+## 🔍 Key Features
 
-## 🖼️ Demo Preview
+- 🪙 **Swap USDC → GRAIN** with one click
+- 🔒 **No KYC, no banks** required (demo mode)
+- 📈 **View balances and track holdings**
+- 📂 **Browse treasuries** by APY, duration, and status
+- 🛠 **Powered by Anchor** smart contracts (simulated for hackathon)
+- 🧪 **Demo Mode** with simulated swaps and balances
 
-> “Safe yield for the 99% — not just the 1%.”
+---
 
-**Exchange Page Features:**
-- Connect wallet
-- Choose a Treasury product
-- Enter amount in USDC
-- Click to swap into GRAIN
+## 🛠️ Tech Stack
 
-## 📦 Folder Structure
+- ⚙️ **Solana** + Anchor smart contracts (Rust)
+- 🎯 **SPL Tokens** for USDC and GRAIN
+- 🧪 **Next.js App Router** (frontend)
+- 🎨 **TailwindCSS** (theme + styling)
+- 🔄 **Simulated devnet logic** via `DEMO_MODE`
+- 🔐 Wallet adapter with Phantom/Solflare
+
+---
+
+## 🔬 Architecture Overview
+
+User → Wallet Connect → Swap USDC → Anchor Program → Mint GRAIN
+↘ Simulated balances in demo mode
+
+
+- Swap logic lives in [`swapUSDCForGrain.ts`](src/app/utils/swapUSDCForGrain.ts)
+- Smart contract logic in [`lib.rs`](anchor/programs/grains_swap/src/lib.rs)
+
+---
+
+## 📦 Project Structure
 
 grains/
 ├── anchor/ # Anchor smart contract
@@ -56,20 +70,25 @@ grains/
 │   └── idl/grains_swap.json
 ├── app/ # Next.js frontend app
 │ ├── components/
+│   └── ClientProvider.tsx
+│   └── ConnectWalletButton.tsx
+│   └── NavBar.tsx
+│   └── SwapForm.tsx
+│   └── TokenBalance.tsx
+│   └── WalletContextProvider.tsx
+│ ├── docs/page.tsx
 │ ├── exchange/page.tsx
+│ ├── hooks/
 │ ├── portfolio/page.tsx
-│ ├── providers/
 │ ├── treasuries/page.tsx
-│ └── utils/swapUSDCForGrain.ts
+│ └── utils/
+│   └── idl/grains_swap.json
+│   └── constants.ts
+│   └── swapUSDCForGrain.ts
 │ ├── global.css
 │ ├── layout.tsx
 │ ├── page.tsx
-│ ├── images/
-├── tests/
-├── grains_swap.json # IDL
-├── Anchor.toml
-├── Cargo.toml
-└── README.md
+├── README.md
 
 
 ## 🧩 Key Differentiators
@@ -81,3 +100,9 @@ grains/
 | Global Access          | ✅       | Often Restricted   |
 | Wallet-Based UX        | ✅       | Mostly Off-chain   |
 | DeFi Composable        | ✅       | Closed Systems     |
+
+## 🧱 Future Plans
+
+- Plug into **real APY sources** like Ondo, Superstate, OpenEden
+- Add **treasury yield farming**, streaming yield, and dashboards
+- Launch on mainnet with **audited smart contracts**
