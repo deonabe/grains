@@ -1,21 +1,28 @@
 'use client';
 
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { ThemeProvider } from 'next-themes';
-import WalletContextProvider from './WalletContextProvider';
-import { ConnectionProvider } from '@solana/wallet-adapter-react';
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
+
+const endpoint = clusterApiUrl('devnet');
+const wallets = [new PhantomWalletAdapter(), new SolflareWalletAdapter()];
 
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <ConnectionProvider endpoint={clusterApiUrl('devnet')}>
-        <WalletContextProvider>
-          <WalletModalProvider>
-            {children}
-          </WalletModalProvider>
-        </WalletContextProvider>
-      </ConnectionProvider>
-    </ThemeProvider>
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          {children}
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 }

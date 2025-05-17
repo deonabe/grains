@@ -2,8 +2,8 @@
 
 import React, { useState, useRef, useMemo } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletModalButton } from '@solana/wallet-adapter-react-ui';
-import { useOutsideClick } from '../hooks/useOutsideClick'; // Optional helper
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useOutsideClick } from '../hooks/useOutsideClick'; // Optional
 
 const ConnectWalletButton: React.FC = () => {
   const { publicKey, connected, disconnect } = useWallet();
@@ -16,15 +16,18 @@ const ConnectWalletButton: React.FC = () => {
     return `${base58.slice(0, 4)}...${base58.slice(-4)}`;
   }, [publicKey]);
 
-  // Close dropdown when clicking outside
   useOutsideClick(dropdownRef, () => setMenuOpen(false));
 
+  // ✅ Not connected → use WalletMultiButton (with optional custom label)
   if (!connected || !publicKey) {
     return (
-      <WalletModalButton className="bg-gradient-to-r from-[#9945FF] to-[#14F195] text-white font-semibold px-4 py-2 rounded-lg shadow hover:opacity-90 transition" />
+      <WalletMultiButton className="bg-gradient-to-r from-[#9945FF] to-[#14F195] text-white font-semibold px-4 py-2 rounded-lg shadow hover:opacity-90 transition">
+        Connect Wallet
+      </WalletMultiButton>
     );
   }
 
+  // ✅ Connected → show short address with dropdown
   return (
     <div className="relative">
       <button

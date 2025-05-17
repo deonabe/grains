@@ -10,8 +10,7 @@ Grains is a Solana-based protocol that allows anyone, anywhere, to convert stabl
 
 - 🎥 [Demo Video](https://youtu.be/YOUR_DEMO_LINK) — <small>walkthrough of UX flow</small>
 - 🎥 [Technical Overview](https://youtu.be/YOUR_TECH_LINK) — <small>architecture + smart contract</small>
-- 🌐 [Frontend (optional)](https://grains.vercel.app)
-- 🧠 [GitHub Repo](https://github.com/YOUR_NAME/grains)
+- 🧠 [GitHub Repo](https://github.com/deonabe/grains)
 
 ---
 
