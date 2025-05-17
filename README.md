@@ -53,32 +53,7 @@ You can run this project locally using [Solana Devnet] and [Next.js].
 
 ---
 
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/deonabe/grains.git
-cd grains
-
-### 2. Build and deploy the smart contract 
-
-```bash
-cd anchor
-anchor build
-anchor deploy
-
-Make sure Anchor.toml is configured with cluster = "devnet"
-
-### 3.
-
-```bash
-cd app
-npm install
-npm run dev
-
-Then visit:
-➡️ http://localhost:3000
-
-##🔬 Architecture Overview
+## 🔬 Architecture Overview
 
 User → Wallet Connect → Swap UI → Anchor Program → Transfer Tokens
              ↘ (Demo Mode) Simulated Balance Updates
@@ -86,7 +61,7 @@ User → Wallet Connect → Swap UI → Anchor Program → Transfer Tokens
 - 🧠 Anchor smart contract: lib.rs
 - 🔐 PDA authority and token transfers handled via Anchor
 
-##📂 Project Structure
+## 📂 Project Structure
 
 grains/
 ├── anchor/                 # Anchor smart contract
@@ -119,3 +94,28 @@ grains/
 - 🌾 Add farming mechanics: yield streaming, rebasing, or locks
 - 📊 Expand portfolio dashboards with live yield and historical stats
 - 🔒 Launch audited contracts on Solana mainnet
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/deonabe/grains.git
+cd grains
+```
+
+### 2. Build and deploy the smart contract
+```bash
+cd anchor
+anchor build
+anchor deploy
+``` 
+
+### 3. Run the application
+```bash
+cd app
+npm install
+npm run dev
+``` 
+
+Then visit:
+➡️ http://localhost:3000
+
+
